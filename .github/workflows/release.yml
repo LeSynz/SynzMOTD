@@ -1,5 +1,10 @@
 name: Build and Release Plugin
 
+permissions:
+    contents: write
+    packages: write
+    actions: read
+
 on:
   push:
     tags:
