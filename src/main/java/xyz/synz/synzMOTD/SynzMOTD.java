@@ -65,7 +65,13 @@ public final class SynzMOTD extends JavaPlugin implements Listener {
     @EventHandler
     public void onPing(ServerListPingEvent event) {
 
+        if (rotatingMotd.isEmpty()) {
+            event.motd(mm.deserialize("<red>No MOTD entries configured.</red>"));
+            return;
+        }
+
         if (index >= rotatingMotd.size()) index = 0;
+
 
         String entry = rotatingMotd.get(index++);
         String[] lines = entry.split("\\n");
