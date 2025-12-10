@@ -1,0 +1,28 @@
+name: SynzMOTD
+version: '1.1.0'
+main: xyz.synz.synzMOTD.SynzMOTD
+api-version: '1.21'
+authors: [ synz.xyz ]
+description: Simple MOTD plugin with MiniMessage support
+
+commands:
+  synzmotd:
+    description: Main SynzMOTD command
+    usage: |
+      /synzmotd reload
+      /synzmotd reloadicon
+    permission: synzmotd.use
+    permission-message: "You do not have permission."
+
+permissions:
+  synzmotd.use:
+    description: Allows using /synzmotd
+    default: true
+
+  synzmotd.reload:
+    description: Allows reloading the config
+    default: op
+
+  synzmotd.reloadicon:
+    description: Allows reloading the server icon
+    default: op

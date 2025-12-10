@@ -1,0 +1,55 @@
+# ==========================
+# IntelliJ IDEA
+# ==========================
+.idea/
+*.iml
+out/
+*.ipr
+*.iws
+
+# ==========================
+# Gradle
+# ==========================
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Cache files
+**/build/
+**/out/
+
+# ==========================
+# Java
+# ==========================
+*.class
+*.log
+
+# ==========================
+# OS-specific
+# ==========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+# Linux
+*.swp
+*~
+
+# ==========================
+# Plugin test servers
+# ==========================
+run/
+server/
+paper/
+testserver/
+
+# Plugin JARs (ignore build output)
+*.jar
+
+# Allow manually exported release JARs
+!release/*.jar

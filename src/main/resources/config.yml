@@ -1,0 +1,21 @@
+motd:
+  rotating:
+    - "<yellow><bold>SynzMOTD</bold></yellow>"
+    - "<rainbow><bold>Edit Config</bold></rainbow>"
+
+
+# ============================================================
+# Formatting Notes (MiniMessage)
+# ------------------------------------------------------------
+# You can use MiniMessage tags such as:
+#
+# <bold>text</bold>
+# <yellow>text</yellow>
+# <gray>text</gray>
+# <gradient:#color1:#color2>text</gradient>
+# <rainbow>text</rainbow>
+#
+# Example MOTD:
+# "<gradient:#f7d358:#f5b042><bold>Synz SMP</bold></gradient>\n<gray>A cozy place to rest and explore</gray>"
+#
+# ============================================================
