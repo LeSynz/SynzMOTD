@@ -1,0 +1,71 @@
+name: Build and Release Plugin
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Extract version from gradle.properties
+      - name: Read version from gradle.properties
+        id: version
+        run: |
+          VERSION=$(grep "pluginVersion" gradle.properties | cut -d'=' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      # Generate changelog from commit history since last tag
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Try to get previous tag safely (may not exist)
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          
+          if [ -z "$PREV_TAG" ]; then
+            echo "No previous tag found, using all commit history."
+            LOG=$(git log --pretty=format:"- %s")
+          else
+            LOG=$(git log "${PREV_TAG}..HEAD" --pretty=format:"- %s")
+          fi
+
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # Set up Java 21 (required for Paper 1.21+)
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      # Make gradle wrapper executable
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      # Build plugin
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+
+      # Create GitHub Release and upload JAR
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: "SynzMOTD v${{ steps.version.outputs.version }}"
+          body: |
+            ## Changelog
+            ${{ steps.changelog.outputs.log }}
+
+          files: |
+            build/libs/*.jar
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

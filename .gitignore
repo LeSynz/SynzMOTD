@@ -12,6 +12,8 @@ out/
 # ==========================
 .gradle/
 build/
+
+# DO NOT ignore the Gradle wrapper JAR
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
 
@@ -28,15 +30,12 @@ build/
 # ==========================
 # OS-specific
 # ==========================
-# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
-# Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-# Linux
 *.swp
 *~
 
@@ -48,8 +47,14 @@ server/
 paper/
 testserver/
 
-# Plugin JARs (ignore build output)
+# ==========================
+# JAR rules
+# ==========================
+# Ignore plugin JARs
 *.jar
 
-# Allow manually exported release JARs
+# Except release JARs
 !release/*.jar
+
+# Except gradle wrapper
+!gradle/wrapper/gradle-wrapper.jar

@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'xyz.synz'
-version = '1.1.0'
+version = pluginVersion
 
 repositories {
     mavenCentral()
@@ -46,10 +46,9 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 processResources {
-    def props = [version: version]
-    inputs.properties props
-    filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
-        expand props
+    filesMatching("plugin.yml") {
+        expand(
+                version: project.version
+        )
     }
 }
